@@ -92,6 +92,10 @@ public class Configuration {
         return config.get(key);
     }
 
+    public static double getDouble(String key) {
+        return Double.parseDouble((String) get(key));
+    }
+
     /**
      * Put a configuration value.
      * @param key The key to put the value for.
