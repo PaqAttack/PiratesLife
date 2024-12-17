@@ -2,9 +2,7 @@ package paqattack.pirateslife;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -13,7 +11,6 @@ import javafx.stage.StageStyle;
 import paqattack.pirateslife.util.Configuration;
 import paqattack.pirateslife.windows.MenuScene;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -22,6 +19,11 @@ public class Main extends Application {
         showSplashScreen(primaryStage);
     }
 
+    /**
+     * Show the splash screen.
+     * The splash screen is shown for a set amount of time.
+     * @param primaryStage The stage to show the splash screen on.
+     */
     private void showSplashScreen(Stage primaryStage) {
         Stage splashStage = new Stage(StageStyle.UNDECORATED);
 
@@ -33,17 +35,16 @@ public class Main extends Application {
                                         "/paqattack/pirateslife/images/splash art2.png"))
                                 .toExternalForm()));
 
-        Label loadingLabel = new Label("Loading...");
-        splashPane.getChildren().addAll(logo, loadingLabel);
-        StackPane.setAlignment(loadingLabel, javafx.geometry.Pos.BOTTOM_CENTER);
-
+        splashPane.getChildren().add(logo);
         Scene splashScene = new Scene(splashPane, 873, 820);
         splashStage.setScene(splashScene);
+        splashStage.setAlwaysOnTop(true);
         splashStage.show();
 
         new Thread(() -> {
             try {
-                Thread.sleep(3000);
+                int milli = Configuration.getInt("SPLASH_TIME") == 0 ? 3000 : Configuration.getInt("SPLASH_TIME");
+                Thread.sleep(milli);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -55,14 +56,20 @@ public class Main extends Application {
         }).start();
     }
 
+    /**
+     * Show the menu scene.
+     * The size is loaded from a configuration file.
+     * @param stage The stage to show the menu on.
+     */
     private void showMenu(Stage stage) {
-        Scene scene = new Scene(
-                new MenuScene(),
-                Configuration.getDouble("MENU_WIDTH"),
-                Configuration.getDouble("MENU_HEIGHT"));
+        MenuScene menuScene = new MenuScene(
+                Configuration.getInt("MENU_WIDTH"),
+                Configuration.getInt("MENU_HEIGHT"),
+                stage);
 
-        stage.setScene(scene);
+        stage.setScene(menuScene.getScene());
         stage.setTitle("Pirate's Life");
+        stage.setAlwaysOnTop(true);
         stage.show();
     }
 
