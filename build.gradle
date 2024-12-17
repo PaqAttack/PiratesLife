@@ -22,7 +22,7 @@ tasks.withType(JavaCompile).configureEach {
 
 application {
     mainModule = 'paqattack.pirateslife'
-    mainClass = 'paqattack.pirateslife.HelloApplication'
+    mainClass = 'paqattack.pirateslife.ProgramEntry'
 }
 
 java {
