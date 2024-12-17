@@ -85,15 +85,59 @@ public class Configuration {
      * @param key The key to get the value for.
      * @return The value for the key.
      */
-    public static Object get(String key) {
+    public static Object getObject(String key) {
         if ((config.get(key)) == null) {
             return "";
         }
         return config.get(key);
     }
 
+    /**
+     * Get a configuration value as a double.
+     * @param key The key to get the value for.
+     * @return The value for the key as a double.
+     */
     public static double getDouble(String key) {
-        return Double.parseDouble((String) get(key));
+        try {
+            return Double.parseDouble((String) getObject(key));
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
+    /**
+     * Get a configuration value as an integer.
+     * @param key The key to get the value for.
+     * @return The value for the key as an integer.
+     */
+    public static int getInt(String key) {
+        try {
+            return Integer.parseInt((String) getObject(key));
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Get a configuration value as a boolean.
+     * @param key The key to get the value for.
+     * @return The value for the key as a boolean.
+     */
+    public static boolean getBoolean(String key) {
+        try {
+            return Boolean.parseBoolean((String) getObject(key));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Get a configuration value as a string.
+     * @param key The key to get the value for.
+     * @return The value for the key as a string.
+     */
+    public static String getString(String key) {
+        return (String) getObject(key);
     }
 
     /**
@@ -106,7 +150,10 @@ public class Configuration {
     }
 
     private static String getDefaultConfig() {
-        return "VERSION=0.1A\n" +
-                "DEFAULT_CONFIG=1\n";
+        return "VERSION=0.1A\n"
+                + "DEFAULT_CONFIG=1\n"
+                + "MENU_WIDTH=800\n"
+                + "MENU_HEIGHT=600\n"
+                + "SPLASH_TIME=3000\n";
     }
 }
