@@ -3,6 +3,7 @@ package paqattack.pirateslife.windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import paqattack.pirateslife.util.Configuration;
 
 /**
  * Controller class for the menu scene.
@@ -52,6 +53,17 @@ public class MenuController {
     }
 
     private void onPlay() {
+        GameScene gameScene = new GameScene(
+                Configuration.getInt("GAME_WIDTH"),
+                Configuration.getInt("GAME_HEIGHT"),
+                stage);
+
+        stage.close();
+        Stage gamwStage = new Stage();
+        gamwStage.setScene(gameScene.getScene());
+        gamwStage.setTitle("Pirate's Life");
+        gamwStage.setAlwaysOnTop(true);
+        gamwStage.show();
         System.out.println("Play clicked");
     }
 

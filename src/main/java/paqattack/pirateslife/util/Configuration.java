@@ -154,6 +154,8 @@ public class Configuration {
                 + "DEFAULT_CONFIG=1\n"
                 + "MENU_WIDTH=800\n"
                 + "MENU_HEIGHT=600\n"
-                + "SPLASH_TIME=3000\n";
+                + "SPLASH_TIME=3000\n"
+                + "GAME_WIDTH=1200\n"
+                + "GAME_HEIGHT=800\n";
     }
 }
